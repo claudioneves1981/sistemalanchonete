@@ -9,9 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CarrinhoRepository extends JpaRepository<Carrinho, Long> {
 
-
-    @Query("DELETE from Carrinho c where c.itens.id =: id")
-    void deleteItens(@Param ("id") Long id);
+    //@Query("DELETE from Carrinho c where c.id =: carrinho and Item.id =: item")
+    //void deleteItens(@Param("carrinho") Long carrinho , @Param ("item") Long item);
 
 
 }

@@ -16,7 +16,7 @@ public class ItemController {
     @Autowired
     private ItemRepository itemRepository;
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<Item> apresentar(@PathVariable Long id){
 
         Item item = itemRepository.findById(id).get();

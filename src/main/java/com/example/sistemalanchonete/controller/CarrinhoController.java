@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -23,26 +24,20 @@ public class CarrinhoController {
     @Autowired
     private CarrinhoService carrinhoService;
 
-    @PostMapping
-    public ResponseEntity<Void> adicionarItem(@RequestBody Item item){
-
-        List<Item> itens = new ArrayList<>();
-        Carrinho carrinho = new Carrinho();
-        itens.add(item);
-        carrinho.setItens(itens);
-        carrinhoRepository.save(carrinho);
-
+    @PostMapping("{carrinho}")
+    public ResponseEntity<Void> adicionarItem(@PathVariable Long carrinho, @RequestBody Item item){
+        carrinhoService.adicionarItem(carrinho,item);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{codigo}")
-    public ResponseEntity<Void> removerItem(@PathVariable Long codigo){
-        carrinhoRepository.deleteItens(codigo);
+    @DeleteMapping("{carrinho}/item/{item}")
+    public ResponseEntity<Void> removerItem(@PathVariable Long carrinho, @PathVariable Long item){
+        carrinhoService.removerItem(carrinho, item);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/preco/{codigo}")
-    public ResponseEntity<PrecoDto> calcularPreco(@PathVariable Long codigo){
-        return ResponseEntity.ok(carrinhoService.calcularPreco(codigo));
+    @GetMapping("/{carrinho}/preco")
+    public ResponseEntity<PrecoDto> calcularPreco(@PathVariable Long carrinho){
+        return ResponseEntity.ok(carrinhoService.calcularPreco(carrinho));
     }
 }

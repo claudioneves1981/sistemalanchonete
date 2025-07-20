@@ -16,8 +16,8 @@ public class Item {
     @Column(name = "ID_ITEM")
     private Long id;
 
-
     private String nome;
+
     private double preco;
 
 }
